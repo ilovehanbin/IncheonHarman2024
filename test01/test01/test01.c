@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int test01(); // ÇÁ·ÎÅä Å¸ÀÔ ¼±¾ğ
+int test01(); // í”„ë¡œí†  íƒ€ì… ì„ ì–¸
 void test02(int a);
 
 
-
+// githubì—ì„œ ìˆ˜ì •
 main()
 {
 	//test01();
@@ -13,17 +13,17 @@ main()
 
 int test01()
 {
-	char* str[] = {"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"}; // ¹®ÀÚ¿­ ¹è¿­(Æ÷ÀÎÅÍ ¹è¿­)
+	char* str[] = {"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"}; // ë¬¸ìì—´ ë°°ì—´(í¬ì¸í„° ë°°ì—´)
 	
-	printf("¼ıÀÚ Å°¸¦ ÀÔ·ÂÇÏ¼¼¿ä. ÇØ´ç ¿µ´Ü¾î¸¦ ¾Ë·Áµå¸®°Ú½À´Ï´Ù. \n");
-	printf("ÇÁ·Î±×·¥À» ³¡³»½Ã·Á¸é 'Q'¸¦ ´©¸£¼¼¿ä.\n\n");
+	printf("ìˆ«ì í‚¤ë¥¼ ì…ë ¥í•˜ì„¸ìš”. í•´ë‹¹ ì˜ë‹¨ì–´ë¥¼ ì•Œë ¤ë“œë¦¬ê² ìŠµë‹ˆë‹¤. \n");
+	printf("í”„ë¡œê·¸ë¨ì„ ëë‚´ì‹œë ¤ë©´ 'Q'ë¥¼ ëˆ„ë¥´ì„¸ìš”.\n\n");
 
 	int n = 1;
 
 	while (n)
 	{
 		printf(">");
-		char a = getch(); // no echo : Å°°ª(¾Æ½ºÅ°ÄÚµå°ª)À» Ãâ·ÂÇÏÁö ¾Ê°í ¹İÈ¯
+		char a = getch(); // no echo : í‚¤ê°’(ì•„ìŠ¤í‚¤ì½”ë“œê°’)ì„ ì¶œë ¥í•˜ì§€ ì•Šê³  ë°˜í™˜
 		int m = a - 0x30; // ASCII --> num
 
 		printf(" %c : %s\n", a, str[m]);
@@ -45,7 +45,7 @@ int test01()
 	}	
 }
 
-void test02(int a) // ¹®ÀÚ¿­°ú ¹®ÀÚ¹è¿­
+void test02(int a) // ë¬¸ìì—´ê³¼ ë¬¸ìë°°ì—´
 {
 	char ca[] = "Hello"; // ca[0]:'H' .. ca[4]:'o', ca[5]:null
 	for (int i = 0; i < 10; i++) // 0 ~ 5
@@ -74,6 +74,6 @@ void test02(int a) // ¹®ÀÚ¿­°ú ¹®ÀÚ¹è¿­
 		else if (a == '0') printf(" %c : Zero\n", a);
 		else if (a | 0x20 == 'q') break;
 		else
-			printf("¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù!!\n");
+			printf("ìˆ«ìê°€ ì•„ë‹™ë‹ˆë‹¤!!\n");
 			break;
 			*/
