@@ -4,7 +4,7 @@ int test01(); // 프로토 타입 선언
 void test02(int a);
 
 
-// github에서 수정
+// github에서 수정하였습니다.
 main()
 {
 	//test01();
