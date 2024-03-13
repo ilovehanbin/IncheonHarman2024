@@ -53,3 +53,5 @@ dkms.conf
 /.vs
 /test01/.vs/test01
 /test01/test01/x64/Debug
+/test02/.vs/test02
+/test02/test02/x64/Debug
