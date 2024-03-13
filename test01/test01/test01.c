@@ -1,21 +1,44 @@
 #include <stdio.h>
 
-int test01(); // 프로토 타입 선언
+void test01(); // 프로토 타입 선언
 void test02();
 void test03();
+void test04();
 void Dump(char* p, int len);
 void Copy(char* p1, char* p2);
 
 
-// github에서 수정하였습니다.
 main()
 {
+	int n;
+	void* pF[] = { test01, test02, test03, test04 }; // void* : 타입이 정해지지 않은 포인터, 각 함수의 주소가 배열에 저장됨.
+	void (*pFunc)(); // 함수 포인터 선언
+
+	while (1)
+	{
+		printf("\n\n\n\n\n");
+		printf("1. 숫자키에 대한 문자열 출력 미션\n");
+		printf("2. 문자열과 문자배열\n");
+		printf("3. 포인터의 위치 지정\n");
+		printf("4. 포인터를 이용한 문자열 입출력함수\n");
+		printf("0. 종  료\n");
+		printf("=====================================\n");
+		printf("선택 : ");
+		scanf("%d", &n);
+
+		if (n == 0) return; // 0 눌렀을 때 프로그램 종료
+		pFunc = pF[n - 1];
+		pFunc();
+	}
+	
+
 	//test01();
 	//test02();
-	test03();
+	//test03();
+	//test04();
 }
 
-int test01()
+void test01() // 숫자키에 대한 문자열 출력 미션
 {
 	char* str[] = { "Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine" }; // 문자열 배열(포인터 배열)
 
@@ -27,10 +50,12 @@ int test01()
 	while (n)
 	{
 		printf(">");
-		char a = getch(); // no echo : 키값(아스키코드값)을 출력하지 않고 반환
-		int m = a - 0x30; // ASCII --> num
+		char c = getch(); // no echo : 키값(아스키코드값)을 출력하지 않고 반환
+		//int m = c - 0x30; // ASCII --> num
 
-		printf(" %c : %s\n", a, str[m]);
+		if ((c | 0x20) == 'q') break;
+		printf(" %c : %s\n", c, str[c - 0x30]);
+
 		/*switch (a)
 		{
 		case '1': printf(" %c : One\n", a); break;
@@ -46,6 +71,22 @@ int test01()
 		case 'q':
 		case 'Q': n = 0; break;
 		}		*/
+
+		/*if (a == '1') printf(" %c : One\n", a);
+		else if (a == '2') printf(" %c : Two\n", a);
+		else if (a == '3') printf(" %c : Three\n", a);
+		else if (a == '4') printf(" %c : Four\n", a);
+		else if (a == '5') printf(" %c : Five\n", a);
+		else if (a == '6') printf(" %c : Six\n", a);
+		else if (a == '7') printf(" %c : Seven\n", a);
+		else if (a == '8') printf(" %c : Eight\n", a);
+		else if (a == '9') printf(" %c : Nine\n", a);
+		else if (a == '0') printf(" %c : Zero\n", a);
+		else if (a | 0x20 == 'q') break;
+		else
+			printf("숫자가 아닙니다!!\n");
+			break;
+			*/
 	}
 }
 
@@ -82,7 +123,7 @@ void test02() // 문자열과 문자배열
 	//}
 }
 
-void test03()
+void test03() // 포인터의 위치 지정
 {
 	char buf[100];  // 안전 메모리 공간 확보
 	char* pBuf;		// 안전 메모리 공간 중의 출력 위치 지정
@@ -97,6 +138,25 @@ void test03()
 	scanf("%s", kBuf);
 	Copy(pBuf, kBuf); // 문자열 복사
 	Dump(buf, 100);
+}
+
+void test04() // 포인터를 이용한 문자열 입출력함수
+{
+	char* arr[10] = { "aaaaa","bbbb","ccc","dd","eeeee"};
+	char buf[100];
+
+	printf("[6]  ");
+	scanf("%s", buf);
+	arr[6] = buf;
+
+	printf("[7]  ");
+	scanf("%s", buf+50);
+	arr[7] = buf+50;
+
+	for (int i = 0; i < 10; i++)
+	{
+		printf("arr[%d] : 0x%08x  %s\n",i,arr[i],arr[i]); // 문자열이 저장된 위치 출력
+	}
 }
 
 void Copy(char* p1, char* p2)
@@ -116,18 +176,4 @@ void Dump(char* p, int len) // 메모리 공간 출력, 16byte, 맨 앞에는 주소 이후는 8
 }
 
 
-/*if (a == '1') printf(" %c : One\n", a);
-		else if (a == '2') printf(" %c : Two\n", a);
-		else if (a == '3') printf(" %c : Three\n", a);
-		else if (a == '4') printf(" %c : Four\n", a);
-		else if (a == '5') printf(" %c : Five\n", a);
-		else if (a == '6') printf(" %c : Six\n", a);
-		else if (a == '7') printf(" %c : Seven\n", a);
-		else if (a == '8') printf(" %c : Eight\n", a);
-		else if (a == '9') printf(" %c : Nine\n", a);
-		else if (a == '0') printf(" %c : Zero\n", a);
-		else if (a | 0x20 == 'q') break;
-		else
-			printf("숫자가 아닙니다!!\n");
-			break;
-			*/
+
