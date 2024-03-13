@@ -4,6 +4,7 @@ void test01(); // 프로토 타입 선언
 void test02();
 void test03();
 void test04();
+void test05();
 void Dump(char* p, int len);
 void Copy(char* p1, char* p2);
 
@@ -11,8 +12,9 @@ void Copy(char* p1, char* p2);
 main()
 {
 	int n;
-	void* pF[] = { test01, test02, test03, test04 }; // void* : 타입이 정해지지 않은 포인터, 각 함수의 주소가 배열에 저장됨.
-	void (*pFunc)(); // 함수 포인터 선언
+	void* pF[] = { test01, test02, test03, test04, test05 }; // void* : 타입이 정해지지 않은 포인터, 각 함수의 주소가 배열에 저장됨.
+	void (*pFunc)(); // 함수 포인터 선언	
+
 
 	while (1)
 	{
@@ -21,6 +23,7 @@ main()
 		printf("2. 문자열과 문자배열\n");
 		printf("3. 포인터의 위치 지정\n");
 		printf("4. 포인터를 이용한 문자열 입출력함수\n");
+		printf("5. 구조체 테스트\n");
 		printf("0. 종  료\n");
 		printf("=====================================\n");
 		printf("선택 : ");
@@ -29,8 +32,7 @@ main()
 		if (n == 0) return; // 0 눌렀을 때 프로그램 종료
 		pFunc = pF[n - 1]; // 함수 포인터에 번호에 따른 함수 주소 저장
 		pFunc(); // 함수 호출
-	}
-	
+	}	
 
 	//test01();
 	//test02();
@@ -157,6 +159,25 @@ void test04() // 포인터를 이용한 문자열 입출력함수
 	{
 		printf("arr[%d] : 0x%08x  %s\n",i,arr[i],arr[i]); // 문자열이 저장된 위치 출력
 	}
+}
+
+void test05() // 구조체 테스트
+{
+	struct stTest
+	{
+		int i; // 4 byte
+		float a; // 4 byte
+		char name[20];
+		//char* name; // 주소는 무조건 8 byte 크기를 갖는다.
+	} s1 = { 1, 3.14,"삼천갑자 동방삭" };
+	//s1.name = "삼천갑자 동방삭"; 
+
+	struct stTest s2 = s1; // 문자열까지도 대입 가능
+
+	printf("sizeof(struct stTest) : %d\n", sizeof(struct stTest)); // sizeof는 함수처럼 보이지만 함수가 아니라 매크로. 그러나 함수처럼 생각해도 무관. 변수의 총 byte 수 반환
+
+	printf("struct stTest s1 : %d  %f  %s\n", s1.i, s1.a, s1.name);
+	printf("struct stTest s2 : %d  %f  %s\n", s2.i, s2.a, s2.name);	
 }
 
 void Copy(char* p1, char* p2)
