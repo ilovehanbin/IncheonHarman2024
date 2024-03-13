@@ -16,7 +16,7 @@ main()
 
 	while (1)
 	{
-		printf("\n\n\n\n\n");
+		printf("\n");
 		printf("1. 숫자키에 대한 문자열 출력 미션\n");
 		printf("2. 문자열과 문자배열\n");
 		printf("3. 포인터의 위치 지정\n");
@@ -27,8 +27,8 @@ main()
 		scanf("%d", &n);
 
 		if (n == 0) return; // 0 눌렀을 때 프로그램 종료
-		pFunc = pF[n - 1];
-		pFunc();
+		pFunc = pF[n - 1]; // 함수 포인터에 번호에 따른 함수 주소 저장
+		pFunc(); // 함수 호출
 	}
 	
 
