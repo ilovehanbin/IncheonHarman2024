@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 void test01(); // 프로토 타입 선언
 void test02();
@@ -286,11 +285,12 @@ int Compare(char* s1, char* s2)
 {	
 	int val = 0;
 	
-	while (*s1 || *s2 && *s1 == *s2) 
+	while ((*s1) && (*s2) && (*s1 == *s2)) 
 	{
-		*s1++;
-		*s2++;
+		s1++;
+		s2++;
 	}
+
 	if (*s1 - *s2 > 0) val = 1;
 	else if (*s1 - *s2 == 0) val = 0;
 	else if (*s1 - *s2 < 0) val = -1;
