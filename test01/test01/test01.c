@@ -1,18 +1,26 @@
 #include <stdio.h>
+#include <string.h>
 
 void test01(); // 프로토 타입 선언
 void test02();
 void test03();
 void test04();
 void test05();
+void test06();
+void test07();
+void test08();
+
 void Dump(char* p, int len);
 void Copy(char* p1, char* p2);
+
+int Length(char* str);
+int Compare(char* s1, char* s2);
 
 
 main()
 {
 	int n;
-	void* pF[] = { test01, test02, test03, test04, test05 }; // void* : 타입이 정해지지 않은 포인터, 각 함수의 주소가 배열에 저장됨.
+	void* pF[] = { test01, test02, test03, test04, test05, test06, test07, test08 }; // void* : 타입이 정해지지 않은 포인터, 각 함수의 주소가 배열에 저장됨.
 	void (*pFunc)(); // 함수 포인터 선언	
 
 
@@ -24,6 +32,9 @@ main()
 		printf("3. 포인터의 위치 지정\n");
 		printf("4. 포인터를 이용한 문자열 입출력함수\n");
 		printf("5. 구조체 테스트\n");
+		printf("6. 표준 함수 테스트\n");
+		printf("7. Length 함수 테스트\n");
+		printf("8. Compare 함수 테스트\n");
 		printf("0. 종  료\n");
 		printf("=====================================\n");
 		printf("선택 : ");
@@ -152,8 +163,8 @@ void test04() // 포인터를 이용한 문자열 입출력함수
 	arr[6] = buf;
 
 	printf("[7]  ");
-	scanf("%s", buf+50);
-	arr[7] = buf+50;
+	scanf("%s", buf + 50);
+	arr[7] = buf + 50;
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -180,7 +191,121 @@ void test05() // 구조체 테스트
 	printf("struct stTest s2 : %d  %f  %s\n", s2.i, s2.a, s2.name);	
 }
 
-void Copy(char* p1, char* p2)
+void test06() // 표준 함수 테스트
+{
+	char* s1; //= "Good";
+	char* s2; //= "afternoon";
+
+	char buf[100]; // 안전 공간 확보
+
+	s1 = buf; // buf의 주소가 s1에 저장
+	s2 = buf + 50; // buf의 50번째 위치 주소가 s2에 저장
+
+	scanf("%s\n", s1 = buf); 
+	scanf("%s\n", s2 = buf + 50); 
+
+	// strcat Test
+	printf("s1 : %s(%d)\n", s1, strlen(s1)); // strlen 함수는 null을 포함하지 않고 길이를 센다.
+	printf("s2 : %s(%d)\n", s2, strlen(s2));
+
+	strcpy(buf, s1); // 연장될 대상 문자열 안전 공간에 저장
+	strcat(buf, s2); // 문자열 덧붙이기
+	// strcat은 문자열 뒤에 새로운 문자열을 연장하여 덧붙일 수 있는 함수.
+	// 문자열이 수정 불가 영역에 있을 경우 연장이 불가능하므로 해당 문자열을 안전 공간에 저장해야 한다.
+
+	printf("strcat(s1,s2) : %s\n", buf); 
+
+	//1. 안전 공간에 문자열을 저장하여 사용하는 방법
+	//char buf[100]; 사용하기
+	// 
+	//2. sprintf 함수를 사용하는 방법
+	//strcat 사용하지 않기
+	// 
+	//sprintf(buf, "strcat(s1,s2) : %s %s\n", s1, s2); // s1과 s2를 buf 에 담음
+	//printf("%s", buf);	
+}
+
+void test07()
+{
+	char buf[100];
+	
+	printf("문자열을 입력하세요 : ");
+	scanf("%s", buf);
+	printf("입력한 문자열의 길이는 [%d] 입니다.\n", Length(buf));
+}
+
+void test08()
+{
+	char buf1[100];
+	char buf2[100];
+
+	printf("첫 번째 문자열을 입력하세요 : ");
+	scanf("%s", buf1);
+	printf("두 번째 문자열을 입력하세요 : ");
+	scanf("%s", buf2);
+	printf("두 문자열 비교 결과는 [%d] 입니다.\n", Compare(buf1, buf2));
+}
+
+// ------- 함수의 설계 ------
+// Prototype : int Length(char* str)
+// 함수명 : Length
+// 기능 : 문자열을 인수로 받아서 문자열의 길이를 반환
+// 인수 : 문자열 - char* str
+// 리턴값 : 문자열의 길이 - int len 
+
+int Length(char* str) // strlen 함수와 같은 기능
+{
+	int len = 0;
+
+	while (1)
+	{
+		if (*(str + len) == 0) break; // 문자열의 끝(null)에 도달했으면 탈출
+		len++;
+	}
+
+	return len;
+	
+	/*int len;
+	char buf[100];
+	str = buf;
+
+	scanf("%s\n", str);
+	for (len = 0; str[len] == 0 ; len++);
+	printf("문자열의 길이 : %d\n", len);
+	return len;*/
+}
+
+// ------- 함수의 설계 -------
+// Prototype : int Compare(char* p1,char* p2)
+// 함수명 : Compare
+// 기능 : s1 문자열과 s2 문자열을 byte 단위로 비교하여 그 비교 결과를 반환
+// 인수 : 비교문자열1, 비교문자열2 - char* s1,char* s2
+// 리턴값 : int
+
+int Compare(char* s1, char* s2)  
+{	
+	int val = 0;
+	
+	while (*s1 || *s2 && *s1 == *s2) 
+	{
+		*s1++;
+		*s2++;
+	}
+	if (*s1 - *s2 > 0) val = 1;
+	else if (*s1 - *s2 == 0) val = 0;
+	else if (*s1 - *s2 < 0) val = -1;
+
+	return val;
+}
+
+// ------- 함수의 설계 -------
+// Prototype : void Copy(char* p1,char* p2)
+// 함수명 : Copy
+// 기능 : p2 문자열을 인수로 받아서 p1 문자열로 복사
+// 인수 : 타겟문자열, 소스문자열 - char* p1,char* p2
+// 리턴값 : void
+
+void Copy(char* p1, char* p2) // strcpy 함수와 같은 기능
 {
 	while (*p2) *p1++ = *p2++; *p1 = 0;
 }
@@ -192,7 +317,6 @@ void Dump(char* p, int len) // 메모리 공간 출력, 16byte, 맨 앞에는 주소 이후는 8
 		if (i % 16 == 0) printf("\n%08x ", p); // 주소값 출력
 		if (i % 8 == 0) printf("    ");
 		printf("%02x ", (unsigned char)*p++); // 해당 주소에 있는 값 출력
-
 	}
 }
 
